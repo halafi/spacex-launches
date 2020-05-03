@@ -1,0 +1,15 @@
+@import "../../variables.scss";
+
+.SelectButton {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  background-color: $primary-blue;
+  color: $white;
+  padding: 10px 16px;
+  white-space: nowrap;
+  &__iconWrapper {
+    padding-left: 8px;
+  }
+}

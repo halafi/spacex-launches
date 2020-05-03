@@ -1,0 +1,37 @@
+@import "../../variables.scss";
+
+.FilterMenuDropdownOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.FilterMenuDropdown {
+  position: relative;
+  &__Inner {
+    position: absolute;
+    top: 20px;
+    padding: 16px;
+    z-index: 2;
+    width: 175px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: $white;
+    box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.16);
+    display: flex;
+    flex-wrap: wrap;
+    &__Item {
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 500;
+      width: 50px;
+      padding: 8px 4px;
+      &--active {
+        font-weight: 900;
+      }
+    }
+  }
+}

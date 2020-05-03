@@ -14,18 +14,19 @@ import { Launch } from "../../records/Launch";
 function Launches() {
   const [launches, setLaunches] = useState<Launch[]>([]);
   const [error, setError] = useState<string>("");
-  // just quick solution
+  // quick solution
   const [pendingRefresh, setPendingRefresh] = useState<boolean>(false);
 
   useEffect(() => {
-    setPendingRefresh(false);
+    if (pendingRefresh) {
+      setPendingRefresh(false);
+    }
     async function fetchLaunches() {
       fetch("https://api.spacexdata.com/v3/launches")
         .then((res) => res.json())
         .then((json) => {
           setLaunches(mapperLaunches(json));
         })
-
         .catch(() => setError("Server error: getting launches failed"));
     }
     fetchLaunches();

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as R from "ramda";
 import { format } from "date-fns";
 import { Launch } from "../../../../records/Launch";
+import SelectButton from "../../../../components/SelectButton";
+import FilterMenuDropdown from "../../../../components/FilterMenuDropdown";
 
 type SortOptions = "ascend" | "descend";
 
@@ -10,9 +12,15 @@ type Props = {
   years: string[];
 };
 
+const SORT_LABELS = {
+  ascend: "Ascending",
+  descend: "Descending",
+};
+
 function LaunchesList({ launches, years }: Props) {
   const [sort, setSort] = useState<SortOptions>("ascend");
   const [filter, setFilter] = useState<string>("");
+  const [showFilters, setShowFilters] = useState<boolean>(false);
 
   const filteredLaunches = filter
     ? launches.filter((l) => l.year === filter)
@@ -25,27 +33,27 @@ function LaunchesList({ launches, years }: Props) {
   return (
     <div className="Launches__main__launchesList">
       <div className="Launches__main__launchesList__filters">
-        <div>
-          <label>Filter by Year</label>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option value="">none</option>
-            {years.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Sort</label>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortOptions)}
-          >
-            <option value="ascend">Ascending</option>
-            <option value="descend">Descending</option>
-          </select>
-        </div>
+        {showFilters && (
+          <FilterMenuDropdown
+            filters={years}
+            activeFilter={filter}
+            onFilterChange={(year) => setFilter(year)}
+            onCancel={() => setShowFilters(false)}
+          />
+        )}
+        <SelectButton
+          className="Launches__main__launchesList__filters__year"
+          icon="select"
+          onClick={() => setShowFilters(true)}
+        >
+          Filter by Year
+        </SelectButton>
+        <SelectButton
+          icon="sort"
+          onClick={() => setSort(sort === "ascend" ? "descend" : "ascend")}
+        >
+          Sort {SORT_LABELS[sort]}
+        </SelectButton>
       </div>
       {sortedLaunches.map((launch) => (
         <div

@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./_variables.scss";
 import "./index.scss";
 import Launches from "./scenes/Launches";
 import * as serviceWorker from "./serviceWorker";

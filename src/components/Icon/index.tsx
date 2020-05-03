@@ -2,24 +2,56 @@ import React from "react";
 import refresh from "../../assets/icon/refresh.png";
 import refresh2x from "../../assets/icon/refresh@2x.png";
 import refresh3x from "../../assets/icon/refresh@3x.png";
+import select from "../../assets/icon/select.png";
+import select2x from "../../assets/icon/select@2x.png";
+import select3x from "../../assets/icon/select@3x.png";
+import sort from "../../assets/icon/sort.png";
+import sort2x from "../../assets/icon/sort@2x.png";
+import sort3x from "../../assets/icon/sort@3x.png";
 
+export type IconVariant = "refresh" | "select" | "sort";
 type Props = {
-  variant: "refresh";
+  variant: IconVariant;
   size: number;
   className?: string;
 };
 
+// I don't like this
+const getImage = (variant: IconVariant, size?: number) => {
+  if (variant === "refresh") {
+    if (size === 2) {
+      return refresh2x;
+    }
+    if (size === 3) {
+      return refresh3x;
+    }
+    return refresh;
+  } else if (variant === "sort") {
+    if (size === 2) {
+      return sort2x;
+    }
+    if (size === 3) {
+      return sort3x;
+    }
+    return sort;
+  } else if (variant === "select") {
+    if (size === 2) {
+      return select2x;
+    }
+    if (size === 3) {
+      return select3x;
+    }
+    return select;
+  }
+};
+
 function Icon({ variant, size, className }: Props) {
-  const img = refresh;
-  const img2x = refresh2x;
-  const img3x = refresh3x;
   return (
     <img
       className={className}
       width={size}
-      height={size}
-      src={img}
-      srcSet={`${img2x} 2x, ${img3x} 3x`}
+      src={getImage(variant)}
+      srcSet={`${getImage(variant, 2)} 2x, ${getImage(variant, 3)} 3x`}
       alt={`${variant} icon`}
     />
   );

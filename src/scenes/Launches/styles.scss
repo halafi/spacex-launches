@@ -23,6 +23,7 @@
     border-radius: 50px 0 0 50px;
     font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
     &__icon {
       margin-left: 10px;
     }
@@ -34,12 +35,13 @@
   &__main {
     display: flex;
     max-width: 16000px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     padding: 0;
     &__launchLogo {
       display: none;
       text-align: center;
-      padding-top: 16px;
+      padding: 70px 20px 0 0;
+
       width: 45%;
       &__img {
         max-width: 100%;
@@ -54,6 +56,9 @@
         padding: 12px 12px 0;
         font-size: 16px;
         font-weight: 700;
+        &__year {
+          margin-right: 9px;
+        }
       }
       &__launch {
         display: flex;
