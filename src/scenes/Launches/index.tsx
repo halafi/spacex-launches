@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import * as R from "ramda";
+import classNames from "classnames";
 import "./styles.scss";
 import logo from "../../assets/spacex-logo.png";
 import Icon from "../../components/Icon";
@@ -12,27 +14,38 @@ import { Launch } from "../../records/Launch";
 function Launches() {
   const [launches, setLaunches] = useState<Launch[]>([]);
   const [error, setError] = useState<string>("");
+  // just quick solution
+  const [pendingRefresh, setPendingRefresh] = useState<boolean>(false);
 
   useEffect(() => {
+    setPendingRefresh(false);
     async function fetchLaunches() {
       fetch("https://api.spacexdata.com/v3/launches")
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
           setLaunches(mapperLaunches(json));
         })
 
-        .catch((err) => setError("Server error: getting launches failed"));
+        .catch(() => setError("Server error: getting launches failed"));
     }
     fetchLaunches();
-  }, []);
+  }, [pendingRefresh]);
 
-  console.log(launches);
+  const years = useMemo(
+    () => R.uniq(launches.map((launch) => launch.year)).sort(),
+    [launches]
+  );
+
   return (
     <div className="Launches">
       <header className="Launches__header">
         <img src={logo} alt="spacex logo" className="Launches__logo" />
-        <div className="Launches__reloadButton">
+        <div
+          className={classNames("Launches__reloadButton", {
+            "Launches__reloadButton--disabled": pendingRefresh,
+          })}
+          onClick={() => !pendingRefresh && setPendingRefresh(true)}
+        >
           Reload data{" "}
           <Icon
             size={14}
@@ -42,14 +55,15 @@ function Launches() {
         </div>
       </header>
       <main className="Launches__main">
-        <div>
+        <div className="Launches__main__launchLogo">
           <img
+            className="Launches__main__launchLogo__img"
             src={launchHome}
             srcSet={`${launchHome2x} 2x, ${launchHome3x} 3x`}
             alt="rocket launch logo"
           />
         </div>
-        {error || <LaunchesList launches={launches} />}
+        {error || <LaunchesList launches={launches} years={years} />}
       </main>
     </div>
   );

@@ -5,6 +5,7 @@ export default function mapperLaunches(input: LaunchInput[]): Launch[] {
     number: launch.flight_number,
     missionName: launch.mission_name,
     rocketName: launch.rocket?.rocket_name,
-    launchDate: launch.launch_date_unix, // number
+    date: launch.launch_date_unix * 1000, // number
+    year: launch.launch_year,
   }));
 }

@@ -1,8 +1,6 @@
 @import "../../variables.scss";
 
 .Launches {
-  text-align: center;
-
   &__header {
     display: flex;
     justify-content: space-between;
@@ -11,8 +9,8 @@
   }
 
   &__logo {
-    padding: 8px 0 8px 40px;
-    height: 31px;
+    padding: 8px;
+    height: 20px;
   }
 
   &__reloadButton {
@@ -28,9 +26,102 @@
     &__icon {
       margin-left: 10px;
     }
+    &--disabled {
+      display: none;
+    }
   }
 
   &__main {
     display: flex;
+    max-width: 16000px;
+    margin: 0 auto;
+    padding: 0;
+    &__launchLogo {
+      display: none;
+      text-align: center;
+      padding-top: 16px;
+      width: 45%;
+      &__img {
+        max-width: 100%;
+      }
+    }
+    &__launchesList {
+      width: 100%;
+      &__filters {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 12px 12px 0;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      &__launch {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 12px 16px;
+        margin: 12px;
+        box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        &__number {
+          font-size: 24px;
+          width: 55px;
+          display: inline-block;
+          word-wrap: break-word;
+        }
+        &__mission {
+          margin-left: 20px;
+        }
+        &__date {
+          font-size: 12px;
+          font-weight: 400;
+        }
+        &__rocket {
+          font-size: 16px;
+          font-weight: 700;
+        }
+        &__dateRocket {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+        }
+      }
+    }
+  }
+
+  // responsivness is just basic iphone5/se support quickly done
+  @media ($mq-tablet) {
+    &__logo {
+      padding: 8px 0 8px 40px;
+      height: 31px;
+    }
+    &__main {
+      padding: 0 80px;
+      &__launchLogo {
+        display: initial;
+      }
+      &__launchesList {
+        width: 55%;
+
+        &__launch {
+          font-size: 32px;
+          &__number {
+            font-size: 40px;
+            width: 90px;
+          }
+          &__mission {
+            margin-left: 20px;
+          }
+          &__date {
+            font-size: 16px;
+          }
+          &__rocket {
+            font-size: 24px;
+          }
+        }
+      }
+    }
   }
 }
