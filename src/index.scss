@@ -1,5 +1,5 @@
 
-@use '_variables';
+@import './variables.scss'; // should be @use and global partial
 
 @font-face {
   font-family: "Brandon Grotesque";
@@ -49,11 +49,7 @@
 body {
   margin: 0;
   font-family: $font-family;
+  color: $font-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
